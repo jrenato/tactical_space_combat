@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdxkimjie257v"]
+
+[ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/ship_template.gd" id="1_0pcff"]
+[ext_resource type="TileSet" uid="uid://cuepi4jc2yv2y" path="res://TacticalSpaceCombat/Assets/ShipTileSet.tres" id="1_jgq8k"]
+
+[node name="ShipTemplate" type="Node2D"]
+script = ExtResource("1_0pcff")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+unique_name_in_owner = true
+tile_set = ExtResource("1_jgq8k")
+
+[node name="Rooms" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Doors" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Walls" type="Node2D" parent="."]
+unique_name_in_owner = true

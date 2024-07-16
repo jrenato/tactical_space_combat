@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3u5s2rke638d"]
+
+[ext_resource type="Texture2D" uid="uid://cmk2wyafmwc5b" path="res://TacticalSpaceCombat/Assets/Assets.svg" id="1_qmy5b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j0aiv"]
+size = Vector2(16, 32)
+
+[node name="Door" type="Area2D" groups=["doors"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_j0aiv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_qmy5b")
+vframes = 2
+region_enabled = true
+region_rect = Rect2(0, 384, 64, 12)

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dr0q41y5uexmy"]
+
+[node name="Wall" type="Line2D"]
+points = PackedVector2Array(-36, 0, 28, 0)
+width = 4.0
+default_color = Color(0.0627451, 0.698039, 0.937255, 1)

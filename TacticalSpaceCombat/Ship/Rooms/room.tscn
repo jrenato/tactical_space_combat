@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddfrfcjykisnt"]
+
+[ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/Rooms/room.gd" id="1_ny3ed"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f6m22"]
+radius = 20.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pyc3n"]
+resource_local_to_scene = true
+size = Vector2(32, 32)
+
+[node name="Room" type="Area2D" groups=["rooms"]]
+script = ExtResource("1_ny3ed")
+
+[node name="HitArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea2D"]
+shape = SubResource("CircleShape2D_f6m22")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_pyc3n")
