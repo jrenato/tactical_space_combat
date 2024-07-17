@@ -21,5 +21,3 @@ func _ready() -> void:
 			#
 			# Thus, `1 << x` is the same as `2 to the power of x`.
 			Layers[layer_name.to_upper()] = 1 << i
-
-	print(Layers)
