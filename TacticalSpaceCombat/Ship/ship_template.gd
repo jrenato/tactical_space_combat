@@ -13,6 +13,7 @@ func _ready() -> void:
 	#for room in rooms.get_children():
 	#	room.setup(tilemap)
 
+
 ## This is our former `_ready()` function from the previous lesson.
 ## It gets called when running the script in the editor.
 func _ready_editor_hint() -> void:

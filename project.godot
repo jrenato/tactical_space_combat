@@ -38,6 +38,8 @@ enabled=PackedStringArray()
 rooms=""
 doors=""
 player=""
+units=""
+selected_units=""
 
 [input]
 

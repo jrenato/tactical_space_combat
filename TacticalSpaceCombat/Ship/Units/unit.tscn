@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcpr8fwi625y1"]
+
+[ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/Units/unit.gd" id="1_5inye"]
+[ext_resource type="Texture2D" uid="uid://cmk2wyafmwc5b" path="res://TacticalSpaceCombat/Assets/Assets.svg" id="1_jr3fc"]
+
+[sub_resource type="Curve2D" id="Curve2D_301rc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6djue"]
+size = Vector2(8, 8)
+
+[node name="Unit" type="Path2D"]
+curve = SubResource("Curve2D_301rc")
+script = ExtResource("1_5inye")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+cubic_interp = false
+loop = false
+
+[node name="AreaUnit" type="Area2D" parent="PathFollow2D" groups=["units"]]
+unique_name_in_owner = true
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D/AreaUnit"]
+texture = ExtResource("1_jr3fc")
+region_enabled = true
+region_rect = Rect2(64, 384, 24, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/AreaUnit"]
+shape = SubResource("RectangleShape2D_6djue")
