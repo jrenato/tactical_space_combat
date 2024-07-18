@@ -23,6 +23,12 @@ var _iter_index: int = 0
 
 ## We'll update this node with the `set_size()` setter function.
 @onready var collision_shape: CollisionShape2D = %CollisionShape2D
+@onready var feedback: NinePatchRect = %Feedback
+
+
+func _ready() -> void:
+	mouse_entered.connect(_on_mouse_exited.bind(true))
+	mouse_exited.connect(_on_mouse_exited.bind(false))
 
 
 ## Initializes the room's properties in the `tilemap`'s coordinates.
@@ -36,6 +42,8 @@ func setup(tilemap: TileMapLayer) -> void:
 	# bottom-right corners.
 	_top_left = _tilemap.local_to_map(position - collision_shape.shape.extents)
 	_bottom_right = _top_left + size
+
+	feedback.custom_minimum_size = 2 * collision_shape.shape.extents
 
 
 func _setup_extents() -> void:
@@ -81,3 +89,16 @@ func _iter_get(_arg) -> Vector2i:
 # we put that expression inside a function.
 func _iter_is_running() -> bool:
 	return _iter_index < _area
+
+
+func _on_mouse_exited(has_entered: bool) -> void:
+	#We use the emitted parameter to toggle the outline's visibility.
+	feedback.visible = has_entered
+
+	# We also add/remove the room from `selected-room` group as needed. We can then get
+	# these nodes from other parts of our code based on the assigned group.
+	var group := "selected_rooms"
+	if has_entered:
+		add_to_group(group)
+	elif is_in_group(group):
+		remove_from_group(group)

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://ddfrfcjykisnt"]
+[gd_scene load_steps=5 format=3 uid="uid://ddfrfcjykisnt"]
 
 [ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/Rooms/room.gd" id="1_ny3ed"]
+[ext_resource type="PackedScene" uid="uid://cx6xhaxeape7l" path="res://TacticalSpaceCombat/UI/ui_feedback.tscn" id="2_u3hck"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f6m22"]
 radius = 20.0
@@ -11,7 +12,6 @@ size = Vector2(32, 32)
 
 [node name="Room" type="Area2D" groups=["rooms"]]
 script = ExtResource("1_ny3ed")
-size = Vector2(1, 1)
 
 [node name="HitArea2D" type="Area2D" parent="."]
 
@@ -21,3 +21,9 @@ shape = SubResource("CircleShape2D_f6m22")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
 shape = SubResource("RectangleShape2D_pyc3n")
+
+[node name="Feedback" parent="." instance=ExtResource("2_u3hck")]
+unique_name_in_owner = true
+modulate = Color(1, 0.709804, 0.439216, 1)
+
+[editable path="Feedback"]
