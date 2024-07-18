@@ -1,5 +1,16 @@
 class_name Utils extends Node
 
+# A list of 8 directions: horizontal, vertical, and diagonal.
+const DIRECTIONS := [
+	Vector2.UP,
+	Vector2.RIGHT + Vector2.UP,
+	Vector2.RIGHT,
+	Vector2.RIGHT + Vector2.DOWN,
+	Vector2.DOWN,
+	Vector2.LEFT + Vector2.DOWN,
+	Vector2.LEFT,
+	Vector2.LEFT + Vector2.UP
+]
 
 ## Converts `offset` coordinates to an integer index.
 static func xy_to_index(width: int, offset: Vector2i) -> int:

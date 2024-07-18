@@ -3,6 +3,7 @@ extends Node2D
 
 @onready var tilemap: TileMapLayer = %TileMapLayer
 @onready var rooms: Node2D = %Rooms
+@onready var doors: Node2D = %Doors
 @onready var units: Node2D = %Units
 
 
@@ -31,10 +32,4 @@ func _ready_not_editor_hint() -> void:
 
 		tilemap.set_cells_terrain_connect(points, 0, 0)
 
-		# We can loop over the room as it's now an iterator.
-		# `point` takes the coordinates of every cell in the room's area.
-		#for point in room:
-			# We use each point to draw the corresponding cell on the tile.
-			#tilemap.set_cell(point, 0)
-	# We call `update_bitmask_region()` to leverage the tileset's floor auto-tile.
-	#tilemap.update_bitmask_region()
+	tilemap.setup(rooms, doors)

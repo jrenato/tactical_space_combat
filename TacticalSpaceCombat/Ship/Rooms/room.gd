@@ -64,6 +64,11 @@ func set_size(value: Vector2i) -> void:
 	_setup_extents()
 
 
+## Checks if the given point is within the bounds of the room
+func has_point(point: Vector2) -> bool:
+	return Rect2(_top_left, size).has_point(point)
+
+
 # The `arg` parameter is undocumented in the official manual, but we don't
 # need it for this iterator.
 func _iter_init(_arg) -> bool:
@@ -95,7 +100,7 @@ func _on_mouse_exited(has_entered: bool) -> void:
 	#We use the emitted parameter to toggle the outline's visibility.
 	feedback.visible = has_entered
 
-	# We also add/remove the room from `selected-room` group as needed. We can then get
+	# We also add/remove the room from `selected_room` group as needed. We can then get
 	# these nodes from other parts of our code based on the assigned group.
 	var group := "selected_rooms"
 	if has_entered:
