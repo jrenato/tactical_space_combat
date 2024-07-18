@@ -3,6 +3,7 @@ extends Node2D
 
 @onready var tilemap: TileMapLayer = %TileMapLayer
 @onready var rooms: Node2D = %Rooms
+@onready var units: Node2D = %Units
 
 
 func _ready() -> void:
@@ -10,8 +11,6 @@ func _ready() -> void:
 		_ready_editor_hint()
 	else:
 		_ready_not_editor_hint()
-	#for room in rooms.get_children():
-	#	room.setup(tilemap)
 
 
 ## This is our former `_ready()` function from the previous lesson.
@@ -29,8 +28,6 @@ func _ready_not_editor_hint() -> void:
 		var points: Array[Vector2i] = []
 		for point in room:
 			points.append(point)
-
-		#print(points)
 
 		tilemap.set_cells_terrain_connect(points, 0, 0)
 

@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://del76nuuo6to7"]
+
+[ext_resource type="PackedScene" uid="uid://mmarmkhx7rgc" path="res://TacticalSpaceCombat/Ship/ship_player.tscn" id="1_kohpx"]
+[ext_resource type="Script" path="res://TacticalSpaceCombat/tactical_space_combat.gd" id="1_sc6bo"]
+
+[node name="TacticalSpaceCombat" type="Node2D"]
+script = ExtResource("1_sc6bo")
+
+[node name="ShipPlayer" parent="." instance=ExtResource("1_kohpx")]
+unique_name_in_owner = true
+position = Vector2(145, 130)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Units" type="VBoxContainer" parent="UI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

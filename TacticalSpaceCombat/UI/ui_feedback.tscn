@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx6xhaxeape7l"]
+
+[ext_resource type="Texture2D" uid="uid://cmk2wyafmwc5b" path="res://TacticalSpaceCombat/Assets/Assets.svg" id="1_w22rg"]
+
+[node name="Feedback" type="NinePatchRect"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_w22rg")
+region_rect = Rect2(0, 416, 32, 32)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8

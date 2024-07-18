@@ -20,4 +20,5 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="Units" type="Node2D" parent="."]
+unique_name_in_owner = true
 self_modulate = Color(0.235294, 0.639216, 0.439216, 0.466667)
