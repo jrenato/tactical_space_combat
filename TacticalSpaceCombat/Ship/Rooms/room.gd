@@ -13,6 +13,12 @@ var _tilemap: TileMapLayer = null
 ## Room area in _TileMap_ cells =`size.x * size.y`.
 var _area: int = 0
 
+## Keeps track of tiles next to doors.
+##
+## The reason we use a dictionary instead of an array is because it's much
+## faster to check for keys in a dictionary than for elements in an array.
+var _entrances: Dictionary = {}
+
 ## Positions in `TileMap` coordinates for the top-left and bottom-right corners
 ## of the room.
 var _top_left := Vector2i.ZERO
@@ -29,6 +35,7 @@ var _iter_index: int = 0
 func _ready() -> void:
 	mouse_entered.connect(_on_mouse_exited.bind(true))
 	mouse_exited.connect(_on_mouse_exited.bind(false))
+	area_entered.connect(_on_area_entered)
 
 
 ## Initializes the room's properties in the `tilemap`'s coordinates.
@@ -69,6 +76,40 @@ func has_point(point: Vector2) -> bool:
 	return Rect2(_top_left, size).has_point(point)
 
 
+func get_slot(slots: Dictionary, unit: Unit) -> Vector2:
+	var out := Vector2.INF
+	var entrance := _get_entrance(_tilemap.local_to_map(unit.path_follow.position))
+
+	var valid_positions := []
+	for offset in self:
+		valid_positions.push_back([offset, offset.distance_to(entrance)])
+	valid_positions.sort_custom(sort_by_second_index)
+
+	for data in valid_positions:
+		var offset: Vector2 = data[0]
+		if not (offset in slots and slots[offset] != unit):
+			out = offset
+			break
+	return out
+
+
+static func sort_by_second_index(a: Array, b: Array) -> bool:
+	return a[1] < b[1]
+
+
+## Returns the closest entrance from the `from` location.
+func _get_entrance(from: Vector2) -> Vector2:
+	var out: Vector2 = Vector2.INF
+	var distance := INF
+	for entrance in _entrances:
+		var curve: Curve2D = _tilemap.find_path(from, entrance)
+		var length: float = curve.get_baked_length()
+		if distance > length:
+			distance = length
+			out = entrance
+	return out
+
+
 # The `arg` parameter is undocumented in the official manual, but we don't
 # need it for this iterator.
 func _iter_init(_arg) -> bool:
@@ -107,3 +148,28 @@ func _on_mouse_exited(has_entered: bool) -> void:
 		add_to_group(group)
 	elif is_in_group(group):
 		remove_from_group(group)
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area is Door:
+		# Here, we find the coordinates of the room tile next to the door.
+		# First, we get the vector pointing from the door to the middle of the
+		# room.
+		var entrance: Vector2 = position - area.position
+		# We project that onto the door normal so it's either vertical or
+		# horizontal and points towards the room.
+		entrance = entrance.project(Vector2.DOWN.rotated(area.rotation)).normalized()
+		# We multiply by half the cell size to get an offset towards the cell's
+		# center.
+		entrance *= 0.5 * _tilemap.tile_set.tile_size.x
+		# We add the door position to calculate the tile's position on the
+		# tilemap.
+		entrance += area.position
+		# As we have a position in pixels, we need to convert it to `TileMap`
+		# coordinates to get the cell's coordinates.
+		entrance = _tilemap.local_to_map(entrance)
+		# Finally, we store the entrance tile position as a key in the
+		# `_entrances` dictionary.
+		# We only want the door's coordinates here so we don't associate a value
+		# to it.
+		_entrances[entrance] = null
