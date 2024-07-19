@@ -16,6 +16,7 @@ var is_walking: bool: set = set_is_walking
 
 
 func _ready() -> void:
+	area_unit.area_entered.connect(_on_area_unit_area_entered)
 	area_unit.modulate = COLORS.default
 	# By default, we want the units to start as stationary:
 	# We use `self` to trigger a call to the `set_is_walking()` setter function.
@@ -59,3 +60,9 @@ func walk(path: Curve2D) -> void:
 	# We place the unit at the start of the path and make it walk.
 	path_follow.progress = 0
 	self.is_walking = true
+
+
+func _on_area_unit_area_entered(area: Area2D) -> void:
+	print("Near area")
+	if area is Door and not area.is_open:
+		self.is_walking = false

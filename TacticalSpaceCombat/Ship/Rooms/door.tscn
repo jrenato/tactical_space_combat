@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/Rooms/door.gd" id="1_qvyw5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j0aiv"]
-size = Vector2(16, 32)
+size = Vector2(32, 32)
 
 [node name="Door" type="Area2D" groups=["doors"]]
 script = ExtResource("1_qvyw5")
@@ -13,7 +13,13 @@ script = ExtResource("1_qvyw5")
 shape = SubResource("RectangleShape2D_j0aiv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 texture = ExtResource("1_qmy5b")
 vframes = 2
 region_enabled = true
 region_rect = Rect2(0, 384, 64, 12)
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.3
+one_shot = true

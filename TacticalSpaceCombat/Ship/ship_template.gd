@@ -26,6 +26,8 @@ func _ready_editor_hint() -> void:
 ## This gets called when running the script in the game.
 func _ready_not_editor_hint() -> void:
 	for unit: Unit in units.get_children():
+		for door: Door in doors.get_children():
+			door.opened.connect(unit.set_is_walking.bind(true))
 		# We calculate the cell coordinates of each unit and store the unit in
 		# the dictionary.
 		var position_map: Vector2i = tilemap.local_to_map(unit.path_follow.position)
