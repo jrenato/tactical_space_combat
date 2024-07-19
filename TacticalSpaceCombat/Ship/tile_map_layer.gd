@@ -15,13 +15,13 @@ func setup(rooms: Node2D, doors: Node2D) -> void:
 			# We convert each point from `Vector2(x, y)` coordinates into a unique index
 			# using `Utils.xy_to_index()`. This conversion requires the width of the
 			# `TileMap` which we get from `_size.x`
-			var id := Utils.xy_to_index(_size.x, point)
+			var id: int = Utils.xy_to_index(floor(_size.x), point)
 			# We add the point and its unique ID to the AStar graph.
 			_astar.add_point(id, point)
 			# For each valid `neighbor` position, we add it to the `AStar2D`
 			# algorithm and connect it with the current `point` via its `id`.
 			for neighbor in _get_neighbors(room, point):
-				var neighbor_id := Utils.xy_to_index(_size.x, neighbor)
+				var neighbor_id := Utils.xy_to_index(floor(_size.x), neighbor)
 				_astar.add_point(neighbor_id, neighbor)
 				_astar.connect_points(id, neighbor_id)
 		# Here, we connect rooms through doors. Doors are between two cells, so we
@@ -39,8 +39,8 @@ func setup(rooms: Node2D, doors: Node2D) -> void:
 		# In other words, it applies the position, rotation, and scale of each
 		# door to the `offset` vector, making it point to the cells facing each
 		# door.
-		var id1 := Utils.xy_to_index(_size.x, local_to_map(door.transform * Vector2(offset)))
-		var id2 := Utils.xy_to_index(_size.x, local_to_map(door.transform * Vector2(-offset)))
+		var id1 := Utils.xy_to_index(floor(_size.x), local_to_map(door.transform * Vector2(offset)))
+		var id2 := Utils.xy_to_index(floor(_size.x), local_to_map(door.transform * Vector2(-offset)))
 		_astar.connect_points(id1, id2)
 
 
@@ -64,8 +64,8 @@ func _get_neighbors(room: Room, point: Vector2) -> Array:
 func find_path(point1: Vector2i, point2: Vector2i) -> Curve2D:
 	var out := Curve2D.new()
 	# Given the two points we first calculate the 1D index IDs
-	var id1 := Utils.xy_to_index(_size.x, point1)
-	var id2 := Utils.xy_to_index(_size.x, point2)
+	var id1 := Utils.xy_to_index(floor(_size.x), point1)
+	var id2 := Utils.xy_to_index(floor(_size.x), point2)
 
 	if _astar.has_point(id1) and _astar.has_point(id2):
 		# If these are valid points in our `AStar2D` object then we
