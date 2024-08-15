@@ -63,6 +63,6 @@ func walk(path: Curve2D) -> void:
 
 
 func _on_area_unit_area_entered(area: Area2D) -> void:
-	print("Near area")
+	print("Entered area")
 	if area is Door and not area.is_open:
 		self.is_walking = false
