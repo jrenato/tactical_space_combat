@@ -1,11 +1,12 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b50s8qhdswy72"]
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id="1"]
 code = "shader_type canvas_item;
 
 
 uniform float force;
 uniform float size;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 
 
 float donought(float l) {
@@ -29,6 +30,6 @@ void fragment() {
 
 [resource]
 resource_local_to_scene = true
-shader = SubResource( 1 )
-shader_param/force = 0.0
-shader_param/size = 0.0
+shader = SubResource("1")
+shader_parameter/force = 0.0
+shader_parameter/size = 0.0
