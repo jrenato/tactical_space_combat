@@ -15,9 +15,9 @@ var _units := 0
 
 
 func _ready() -> void:
-	area_entered.connect(_on_area_exited.bind(true))
-	area_exited.connect(_on_area_exited.bind(false))
-	timer.timeout.connect(set_is_open)
+	area_entered.connect(_on_area_movement.bind(true))
+	area_exited.connect(_on_area_movement.bind(false))
+	timer.timeout.connect(set_is_open.bind(true))
 
 
 ## Updates `is_open` and the door's sprite. Emits the `opened` signal
@@ -31,8 +31,8 @@ func set_is_open(value: bool) -> void:
 		sprite.frame = 0
 
 
-func _on_area_exited(area: Variant, has_entered: bool) -> void:
-	if area is Unit:
+func _on_area_movement(area: Node2D, has_entered: bool) -> void:
+	if area.owner is Unit:
 		# Add or subtract 1 to `_units` based on `has_entered`.
 		_units += 1 if has_entered else -1
 
