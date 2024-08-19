@@ -56,7 +56,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		# Below, point1 and point2 are respectively the unit's position and an empty slot the room will find for us.
 		var point1: Vector2i = tilemap.local_to_map(unit.path_follow.position)
 		for room: Room in get_tree().get_nodes_in_group("selected_rooms"):
-			# We have yet to define `Room.get_slot()`, we'll do it later in the lesson.
+			# We ensure the room is part of the player ship by checking the ship is in the `player` group.
+			if not room.owner.is_in_group("player"):
+				break
+
 			var point2: Vector2 = room.get_slot(_slots, unit)
 			# If the location isn't valid we break out of the loop.
 			# `Room.get_slot()` will return infinity values so we can reliably check for an invalid slot.
