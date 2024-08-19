@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvhrnhvqrfshq"]
+[gd_scene load_steps=5 format=3 uid="uid://dvhrnhvqrfshq"]
 
 [ext_resource type="PackedScene" uid="uid://cdxkimjie257v" path="res://TacticalSpaceCombat/Ship/ship_template.tscn" id="1_kbeou"]
 [ext_resource type="PackedScene" uid="uid://ddfrfcjykisnt" path="res://TacticalSpaceCombat/Ship/Rooms/room.tscn" id="2_gllqc"]
 [ext_resource type="PackedScene" uid="uid://d3u5s2rke638d" path="res://TacticalSpaceCombat/Ship/Rooms/door.tscn" id="3_ohuoh"]
+[ext_resource type="PackedScene" uid="uid://dcdhxlkf48pt3" path="res://TacticalSpaceCombat/Ship/Weapons/weapon_projectile.tscn" id="4_ewwgh"]
 
 [node name="ShipAI" instance=ExtResource("1_kbeou")]
 
@@ -17,3 +18,7 @@ size = Vector2i(3, 1)
 [node name="Door" parent="Doors" index="0" instance=ExtResource("3_ohuoh")]
 position = Vector2(128, 96)
 rotation = 1.5708
+
+[node name="Weapon" parent="Weapons" index="0" instance=ExtResource("4_ewwgh")]
+position = Vector2(64, -32)
+rotation = 3.14159

@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjw8o4i1xpj5l"]
+
+[ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/Weapons/projectile.gd" id="1_fpxlt"]
+[ext_resource type="Texture2D" uid="uid://cmk2wyafmwc5b" path="res://TacticalSpaceCombat/Assets/Assets.svg" id="1_y678i"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0y0mo"]
+radius = 4.0
+height = 20.0
+
+[node name="Projectile" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 0
+linear_velocity = Vector2(750, 0)
+script = ExtResource("1_fpxlt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.890196, 0.411765, 0.337255, 1)
+texture = ExtResource("1_y678i")
+region_enabled = true
+region_rect = Rect2(130, 419, 28, 12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_0y0mo")

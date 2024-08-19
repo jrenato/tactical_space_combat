@@ -7,6 +7,7 @@ var _slots: Dictionary = {}
 @onready var rooms: Node2D = %Rooms
 @onready var doors: Node2D = %Doors
 @onready var units: Node2D = %Units
+@onready var weapons: Node2D = %Weapons
 
 
 func _ready() -> void:

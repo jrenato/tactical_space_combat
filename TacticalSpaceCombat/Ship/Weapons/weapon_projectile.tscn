@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcdhxlkf48pt3"]
+
+[ext_resource type="Texture2D" uid="uid://cmk2wyafmwc5b" path="res://TacticalSpaceCombat/Assets/Assets.svg" id="1_xdmys"]
+[ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/Weapons/weapon_projectile.gd" id="2_oi7l7"]
+
+[node name="Weapon" type="Sprite2D"]
+texture = ExtResource("1_xdmys")
+region_enabled = true
+region_rect = Rect2(64, 416, 32, 32)
+script = ExtResource("2_oi7l7")
