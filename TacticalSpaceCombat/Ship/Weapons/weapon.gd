@@ -20,7 +20,6 @@ var _charge: float = MIN_CHARGE
 var tween: Tween
 
 
-
 func _ready() -> void:
 	is_charging = true
 

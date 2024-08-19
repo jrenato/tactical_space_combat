@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvhrnhvqrfshq"]
+[gd_scene load_steps=6 format=3 uid="uid://dvhrnhvqrfshq"]
 
 [ext_resource type="PackedScene" uid="uid://cdxkimjie257v" path="res://TacticalSpaceCombat/Ship/ship_template.tscn" id="1_kbeou"]
 [ext_resource type="PackedScene" uid="uid://ddfrfcjykisnt" path="res://TacticalSpaceCombat/Ship/Rooms/room.tscn" id="2_gllqc"]
 [ext_resource type="PackedScene" uid="uid://d3u5s2rke638d" path="res://TacticalSpaceCombat/Ship/Rooms/door.tscn" id="3_ohuoh"]
 [ext_resource type="PackedScene" uid="uid://dcdhxlkf48pt3" path="res://TacticalSpaceCombat/Ship/Weapons/weapon_projectile.tscn" id="4_ewwgh"]
+[ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/Weapons/controller_ai_projectile.gd" id="4_j8xpj"]
 
 [node name="ShipAI" instance=ExtResource("1_kbeou")]
 
@@ -19,6 +20,9 @@ size = Vector2i(3, 1)
 position = Vector2(128, 96)
 rotation = 1.5708
 
-[node name="Weapon" parent="Weapons" index="0" instance=ExtResource("4_ewwgh")]
+[node name="ControllerAIProjectile" type="Node2D" parent="Weapons" index="0"]
+script = ExtResource("4_j8xpj")
+
+[node name="Weapon" parent="Weapons/ControllerAIProjectile" index="0" instance=ExtResource("4_ewwgh")]
 position = Vector2(64, -32)
-rotation = 3.14159
+rotation = -3.14159
