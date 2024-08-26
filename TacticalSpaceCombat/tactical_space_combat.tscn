@@ -9,7 +9,7 @@ script = ExtResource("1_sc6bo")
 
 [node name="ShipPlayer" parent="." instance=ExtResource("1_kohpx")]
 unique_name_in_owner = true
-position = Vector2(145, 130)
+position = Vector2(128, 384)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -25,9 +25,9 @@ offset_bottom = 40.0
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 offset_left = 1024.0
-offset_top = 128.0
+offset_top = 96.0
 offset_right = 1792.0
-offset_bottom = 960.0
+offset_bottom = 928.0
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false

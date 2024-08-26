@@ -7,11 +7,23 @@ signal targeted(msg: Dictionary)
 ## To keep it interesting we'll pick random targets using this random number generator.
 var _rng := RandomNumberGenerator.new()
 var _rooms_count := 0
+var mean_position := Vector2.INF
 
 
 func _ready() -> void:
 	_rng.randomize()
 	_rooms_count = get_child_count()
+	mean_position = _get_mean_position()
+
+
+func _get_mean_position() -> Vector2:
+	var out := Vector2.ZERO
+	for room in get_children():
+		out += room.position
+
+	if _rooms_count > 0:
+		out /= _rooms_count
+	return out
 
 
 func _on_controller_targeting(msg: Dictionary) -> void:

@@ -8,6 +8,7 @@ var _slots: Dictionary = {}
 @onready var doors: Node2D = %Doors
 @onready var units: Node2D = %Units
 @onready var weapons: Node2D = %Weapons
+@onready var projectiles: Node2D = %Projectiles
 
 
 func _ready() -> void:
@@ -44,6 +45,7 @@ func _ready_not_editor_hint() -> void:
 		tilemap.set_cells_terrain_connect(points, 0, 0)
 
 	tilemap.setup(rooms, doors)
+	projectiles.setup(rooms.mean_position)
 
 
 func _unhandled_input(event: InputEvent) -> void:

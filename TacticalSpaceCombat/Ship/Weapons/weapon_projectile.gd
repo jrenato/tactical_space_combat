@@ -4,6 +4,8 @@ extends Weapon
 ## Emitted every time the weapon fires a projectile.
 signal fired
 
+signal projectile_exited(params: Dictionary)
+
 ## The projectile to spawn and fire.
 const projectile_scene := preload("res://TacticalSpaceCombat/Ship/Weapons/projectile.tscn")
 
@@ -40,6 +42,13 @@ func fire() -> void:
 	# We adjust `linear_velocity` by `rotation` because we can orient the weapon
 	# in any direction we want.
 	projectile.linear_velocity = projectile.linear_velocity.rotated(rotation)
+
+	var params: Dictionary = {
+		"physics_layer": _physics_layer,
+		"target_position": target_position
+	}
+	projectile.tree_exited.connect(func(): projectile_exited.emit(params))
+
 	add_child(projectile)
 
 	fired.emit()

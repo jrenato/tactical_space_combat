@@ -27,3 +27,7 @@ func _ready_weapons_ai() -> void:
 			controller.targeting.connect(ship_player.rooms._on_controller_targeting)
 			# We update the requested target position via the rooms' `targeted` signal.
 			ship_player.rooms.targeted.connect(controller._on_ship_targeted)
+
+		controller.weapon.projectile_exited.connect(
+			ship_player.projectiles._on_weapon_projectile_exited
+		)

@@ -32,3 +32,10 @@ static func erase_value(dict: Dictionary, value: Variant) -> bool:
 		if dict[key] == value:
 			out = dict.erase(key)
 	return out
+
+
+## Returns a random `Vector2` on a circle of the given `radius` by picking a
+## random angle.
+static func randvf_circle(_rng: RandomNumberGenerator, radius: float) -> Vector2:
+	# `TAU` is a built in constant equal with `2 * PI` - a full circle.
+	return (radius * Vector2.RIGHT).rotated(_rng.randf_range(0, TAU))
