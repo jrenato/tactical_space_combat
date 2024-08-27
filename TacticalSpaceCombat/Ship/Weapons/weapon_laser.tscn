@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0ancs4c6vn5x"]
+
+[ext_resource type="PackedScene" uid="uid://dcdhxlkf48pt3" path="res://TacticalSpaceCombat/Ship/Weapons/weapon_projectile.tscn" id="1_m3rar"]
+[ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/Weapons/weapon_laser.gd" id="2_57wmo"]
+
+[node name="Weapon" instance=ExtResource("1_m3rar")]
+region_rect = Rect2(96, 416, 32, 32)
+script = ExtResource("2_57wmo")
+targeting_length = null
+color = null
+charge_time = null
+
+[node name="Timer" type="Timer" parent="." index="0"]
+unique_name_in_owner = true
+wait_time = 0.6
+one_shot = true
+
+[node name="Line2D" type="Line2D" parent="." index="1"]
+unique_name_in_owner = true
+visible = false
+points = PackedVector2Array(0, 0, 1920, 0)
+width = 2.0
+default_color = Color(0.364706, 0.533333, 1, 1)
+antialiased = true
