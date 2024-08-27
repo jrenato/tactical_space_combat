@@ -5,7 +5,7 @@ signal targeting(msg: Dictionary)
 
 ## List of all weapon types. Currently, we only have projectile-based weapons,
 ## but we'll add lasers in another lesson.
-enum TYPE {PROJECTILE}
+enum TYPE {PROJECTILE, LASER}
 
 ## This is why we used the generic `Weapon` name for both projectile and laser
 ## specializations. We reference them with the same name.
@@ -21,13 +21,15 @@ func _on_ship_targeted(msg: Dictionary) -> void:
 		#
 		# Here, the pattern matches any dictionary with at least a key named "type"
 		# with a value of `Type.PROJECTILE`.
-		{"type": TYPE.PROJECTILE, ..}:
+		{ "type": TYPE.PROJECTILE, .. }:
 			# A ship can have more than one weapon of each type. To distinguish
 			# between them we use the `Controller` index position in the scene
 			# tree.
 			if msg.index == get_index():
 				weapon.target_position = msg.target_position
 				print("New `target_position` requested: ", msg.target_position)
+		{ "type": TYPE.LASER, "success": true }:
+			weapon.has_targeted = true
 
 
 func _get_configuration_warning() -> String:
