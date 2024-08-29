@@ -26,6 +26,33 @@ func _get_mean_position() -> Vector2:
 	return out
 
 
+## Returns an array of the form `[point1, point2]` defining a segment for
+## sweeping the laser across two random rooms.
+func get_laser_points(targeting_length: float) -> Array:
+	# Get a random room index.
+	var room_index_first := _rng.randi_range(0, _rooms_count - 1)
+
+	# Create an array with the remaining room indices skipping
+	# `room_index_first`.
+	var remaining := []
+	for room_index in range(_rooms_count):
+		if room_index != room_index_first:
+			remaining.push_back(room_index)
+
+	# Pick a random index from the array for the second room.
+	var index = _rng.randi_range(0, remaining.size() - 1)
+	var room_index_second = remaining[index]
+
+	# Get two random positions in the two rooms.
+	var point1: Vector2 = get_child(room_index_first).randv()
+	var point2: Vector2 = get_child(room_index_second).randv()
+
+	# Update `point2` to be `targeting_length` distance away from `point1` in
+	# the same direction.
+	point2 = point1.move_toward(point2, targeting_length)
+	return [point1, point2]
+
+
 func _on_controller_targeting(msg: Dictionary) -> void:
 	# Get a random room index.
 	var random_index := _rng.randi_range(0, _rooms_count - 1)

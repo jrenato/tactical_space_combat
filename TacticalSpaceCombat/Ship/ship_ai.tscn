@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://dvhrnhvqrfshq"]
+[gd_scene load_steps=8 format=3 uid="uid://dvhrnhvqrfshq"]
 
 [ext_resource type="PackedScene" uid="uid://cdxkimjie257v" path="res://TacticalSpaceCombat/Ship/ship_template.tscn" id="1_kbeou"]
 [ext_resource type="PackedScene" uid="uid://ddfrfcjykisnt" path="res://TacticalSpaceCombat/Ship/Rooms/room.tscn" id="2_gllqc"]
 [ext_resource type="PackedScene" uid="uid://d3u5s2rke638d" path="res://TacticalSpaceCombat/Ship/Rooms/door.tscn" id="3_ohuoh"]
 [ext_resource type="PackedScene" uid="uid://dcdhxlkf48pt3" path="res://TacticalSpaceCombat/Ship/Weapons/weapon_projectile.tscn" id="4_ewwgh"]
 [ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/Weapons/controller_ai_projectile.gd" id="4_j8xpj"]
+[ext_resource type="PackedScene" uid="uid://xjsflkro6i5b" path="res://TacticalSpaceCombat/Ship/Weapons/controller_ai_laser.tscn" id="6_6qw8l"]
+[ext_resource type="PackedScene" uid="uid://d0ancs4c6vn5x" path="res://TacticalSpaceCombat/Ship/Weapons/weapon_laser.tscn" id="7_yw8hc"]
 
 [node name="ShipAI" instance=ExtResource("1_kbeou")]
 
@@ -26,3 +28,18 @@ script = ExtResource("4_j8xpj")
 [node name="Weapon" parent="Weapons/ControllerAIProjectile" index="0" instance=ExtResource("4_ewwgh")]
 position = Vector2(64, -32)
 rotation = -3.14159
+
+[node name="ControllerAILaser" parent="Lasers" index="0" instance=ExtResource("6_6qw8l")]
+position = Vector2(-32, 64)
+rotation = 3.14159
+
+[node name="Weapon" parent="Lasers/ControllerAILaser" index="0" instance=ExtResource("7_yw8hc")]
+
+[node name="ControllerAILaser2" parent="Lasers" index="1" instance=ExtResource("6_6qw8l")]
+position = Vector2(64, 160)
+rotation = 3.14159
+
+[node name="Weapon" parent="Lasers/ControllerAILaser2" index="0" instance=ExtResource("7_yw8hc")]
+targeting_length = 100
+color = Color(0.301961, 0.384314, 0.847059, 1)
+charge_time = 1.0

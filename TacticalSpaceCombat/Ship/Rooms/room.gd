@@ -27,6 +27,8 @@ var _bottom_right := Vector2i.ZERO
 ## We'll keep track of our iteration index with this property.
 var _iter_index: int = 0
 
+var _rng := RandomNumberGenerator.new()
+
 ## We'll update this node with the `set_size()` setter function.
 @onready var collision_shape: CollisionShape2D = %CollisionShape2D
 @onready var feedback: NinePatchRect = %Feedback
@@ -36,6 +38,7 @@ func _ready() -> void:
 	mouse_entered.connect(_on_mouse_exited.bind(true))
 	mouse_exited.connect(_on_mouse_exited.bind(false))
 	area_entered.connect(_on_area_entered)
+	_rng.randomize()
 
 
 ## Initializes the room's properties in the `tilemap`'s coordinates.
@@ -135,6 +138,13 @@ func _iter_get(_arg) -> Vector2i:
 # we put that expression inside a function.
 func _iter_is_running() -> bool:
 	return _iter_index < _area
+
+
+## Returns a random `Vector2` in the `Room` perimeter in world coordinates.
+func randv() -> Vector2:
+	var top_left_world := _tilemap.map_to_local(_top_left)
+	var bottom_right_world := _tilemap.map_to_local(_bottom_right)
+	return Utils.randvf_range(_rng, top_left_world, bottom_right_world)
 
 
 func _on_mouse_exited(has_entered: bool) -> void:

@@ -1,6 +1,8 @@
 @tool
 extends Node2D
 
+const laser_tracker_scene := preload("res://TacticalSpaceCombat/Ship/Weapons/laser_tracker.tscn")
+
 var _slots: Dictionary = {}
 
 @onready var tilemap: TileMapLayer = %TileMapLayer
@@ -9,6 +11,7 @@ var _slots: Dictionary = {}
 @onready var units: Node2D = %Units
 @onready var weapons: Node2D = %Weapons
 @onready var projectiles: Node2D = %Projectiles
+@onready var lasers: Node2D = %Lasers
 
 
 func _ready() -> void:
@@ -79,3 +82,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			Utils.erase_value(_slots, unit)
 			_slots[point2] = unit
 			unit.walk(path)
+
+
+func add_laser_tracker(color: Color) -> Node:
+	var laser_tracker := laser_tracker_scene.instantiate()
+	lasers.add_child(laser_tracker)
+	laser_tracker.setup(color, rooms)
+	return laser_tracker

@@ -6,9 +6,8 @@
 [node name="Weapon" instance=ExtResource("1_m3rar")]
 region_rect = Rect2(96, 416, 32, 32)
 script = ExtResource("2_57wmo")
-targeting_length = null
-color = null
-charge_time = null
+targeting_length = 140
+color = Color(0.690196, 0.188235, 0.360784, 1)
 
 [node name="Timer" type="Timer" parent="." index="0"]
 unique_name_in_owner = true

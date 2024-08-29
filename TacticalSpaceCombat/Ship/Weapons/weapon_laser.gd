@@ -30,11 +30,12 @@ func _ready() -> void:
 
 	line.default_color = color
 
+
 func _get_configuration_warnings() -> PackedStringArray:
 	var parent := get_parent()
-	var is_verified := parent != null and parent is ControllerAILaser
+	var is_verified: bool = parent != null and parent is ControllerAILaser
 
-	return "" if is_verified else "WeaponLaser needs to be a parent of ControllerAILaser"
+	return [] if is_verified else ["WeaponLaser needs to be a parent of ControllerAILaser"]
 
 
 func fire() -> void:

@@ -41,6 +41,7 @@ doors=""
 player=""
 units=""
 selected_units=""
+lasers=""
 
 [input]
 

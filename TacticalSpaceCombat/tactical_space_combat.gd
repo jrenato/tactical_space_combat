@@ -28,6 +28,14 @@ func _ready_weapons_ai() -> void:
 			# We update the requested target position via the rooms' `targeted` signal.
 			ship_player.rooms.targeted.connect(controller._on_ship_targeted)
 
-		controller.weapon.projectile_exited.connect(
-			ship_player.projectiles._on_weapon_projectile_exited
-		)
+			controller.weapon.projectile_exited.connect(
+				ship_player.projectiles._on_weapon_projectile_exited
+			)
+		elif controller is ControllerAILaser:
+			# We add a `LaserTracker` node to the player ship for every
+			# `ControllerAILaser` in `ShipAI`.
+			var laser_tracker: Node = ship_player.add_laser_tracker(controller.weapon.color)
+			controller.targeting.connect(func(): laser_tracker._on_controller_targeting([]), CONNECT_DEFERRED)
+			controller.weapon.fire_started.connect(laser_tracker._on_weapon_fire_started)
+			controller.weapon.fire_stopped.connect(laser_tracker._on_Weapon_fire_stopped)
+			laser_tracker.targeted.connect(controller._on_ship_targeted)

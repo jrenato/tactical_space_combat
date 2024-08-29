@@ -39,3 +39,11 @@ static func erase_value(dict: Dictionary, value: Variant) -> bool:
 static func randvf_circle(_rng: RandomNumberGenerator, radius: float) -> Vector2:
 	# `TAU` is a built in constant equal with `2 * PI` - a full circle.
 	return (radius * Vector2.RIGHT).rotated(_rng.randf_range(0, TAU))
+
+
+## Returns a random `Vector2` within the perimeter defined by `top_left` and
+## `bottom_right`.
+static func randvf_range(_rng: RandomNumberGenerator, top_left: Vector2, bottom_right: Vector2) -> Vector2:
+	var x := _rng.randf_range(top_left.x, bottom_right.x)
+	var y := _rng.randf_range(top_left.y, bottom_right.y)
+	return Vector2(x, y)
