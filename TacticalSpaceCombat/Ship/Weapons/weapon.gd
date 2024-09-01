@@ -34,6 +34,7 @@ func enable_weapon() -> void:
 
 
 func set_is_charging(value: bool) -> void:
+	print("charging")
 	is_charging = value
 	# When we start charging, we animate the `_charge` property using our `Tween` node.
 	if is_charging:

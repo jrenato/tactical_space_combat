@@ -39,6 +39,7 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func fire() -> void:
+	print("Firing laser")
 	if not can_fire():
 		return
 

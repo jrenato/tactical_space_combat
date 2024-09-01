@@ -34,8 +34,8 @@ func _ready_weapons_ai() -> void:
 		elif controller is ControllerAILaser:
 			# We add a `LaserTracker` node to the player ship for every
 			# `ControllerAILaser` in `ShipAI`.
-			var laser_tracker: Node = ship_player.add_laser_tracker(controller.weapon.color)
-			controller.targeting.connect(func(): laser_tracker._on_controller_targeting([]), CONNECT_DEFERRED)
-			controller.weapon.fire_started.connect(laser_tracker._on_weapon_fire_started)
-			controller.weapon.fire_stopped.connect(laser_tracker._on_Weapon_fire_stopped)
+			var laser_tracker: LaserTracker = ship_player.add_laser_tracker(controller.weapon.color)
+			controller.targeting.connect(func(msg: Dictionary): laser_tracker._on_controller_targeting(msg), CONNECT_DEFERRED)
+			controller.weapon.fire_started.connect(func(params: Dictionary): laser_tracker._on_weapon_fire_started(params))
+			controller.weapon.fire_stopped.connect(laser_tracker._on_weapon_fire_stopped)
 			laser_tracker.targeted.connect(controller._on_ship_targeted)
