@@ -25,12 +25,3 @@ position = Vector2(-32, 64)
 rotation = 3.14159
 
 [node name="Weapon" parent="Weapons/ControllerAILaser" index="0" instance=ExtResource("7_yw8hc")]
-
-[node name="ControllerAILaser2" parent="Weapons" index="1" instance=ExtResource("6_6qw8l")]
-position = Vector2(64, 160)
-rotation = 3.14159
-
-[node name="Weapon" parent="Weapons/ControllerAILaser2" index="0" instance=ExtResource("7_yw8hc")]
-targeting_length = 100
-color = Color(0.301961, 0.384314, 0.847059, 1)
-charge_time = 1.0

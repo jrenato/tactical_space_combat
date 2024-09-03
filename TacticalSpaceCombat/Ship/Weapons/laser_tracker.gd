@@ -35,7 +35,6 @@ func setup(color: Color, rooms: Node2D) -> void:
 func _on_controller_targeting(msg: Dictionary) -> void:
 	# Update `TargetLine2D` with a randomly generated line from
 	# `Rooms.get_laser_points()`.
-	prints("Controller targeting", msg)
 	target_line.points = _rooms.get_laser_points(msg.targeting_length)
 	targeted.emit({"type": Controller.TYPE.LASER, "success": true})
 
@@ -43,7 +42,6 @@ func _on_controller_targeting(msg: Dictionary) -> void:
 func _on_weapon_fire_started(params: Dictionary) -> void:
 	# Remember we initialized `target_line.points` with `LINE_DEFAULT` in the
 	# `_ready()` function. So we first check if the target is valid.
-	prints("laser fire started", params)
 	if Vector2.INF in target_line.points:
 		return
 
@@ -69,7 +67,6 @@ func _on_weapon_fire_started(params: Dictionary) -> void:
 
 
 func _on_weapon_fire_stopped() -> void:
-	print("laser fire stopped")
 	if tween:
 		tween.kill()
 	line.points = LINE_DEFAULT

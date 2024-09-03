@@ -27,9 +27,7 @@ func _on_ship_targeted(msg: Dictionary) -> void:
 			# tree.
 			if msg.index == get_index():
 				weapon.target_position = msg.target_position
-				print("New `target_position` requested: ", msg.target_position)
 		{ "type": TYPE.LASER, "success": true }:
-			print("Laser is targetting")
 			weapon.has_targeted = true
 
 

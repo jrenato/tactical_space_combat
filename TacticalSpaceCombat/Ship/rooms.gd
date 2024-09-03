@@ -47,6 +47,7 @@ func get_laser_points(targeting_length: float) -> Array:
 	var point1: Vector2 = get_child(room_index_first).randv()
 	var point2: Vector2 = get_child(room_index_second).randv()
 
+
 	# Update `point2` to be `targeting_length` distance away from `point1` in
 	# the same direction.
 	point2 = point1.move_toward(point2, targeting_length)
@@ -60,7 +61,7 @@ func _on_controller_targeting(msg: Dictionary) -> void:
 
 	# Add extra `type` and `target_position` keys with the requested information.
 	# We use `msg.type` in the `match` statement back in the
-	# `Controller._on_Ship_targeted()` function to distinguish between weapon
+	# `Controller._on_ship_targeted()` function to distinguish between weapon
 	# update messages.
 	msg.type = Controller.TYPE.PROJECTILE
 	msg.target_position = room.position

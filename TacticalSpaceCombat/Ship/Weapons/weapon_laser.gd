@@ -30,6 +30,8 @@ func _ready() -> void:
 
 	line.default_color = color
 
+	super()
+
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var parent := get_parent()
@@ -39,7 +41,6 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func fire() -> void:
-	print("Firing laser")
 	if not can_fire():
 		return
 
