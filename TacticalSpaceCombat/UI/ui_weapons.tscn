@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg1hrb0bbe2u1"]
+
+[ext_resource type="PackedScene" uid="uid://nvkgdnefj8ya" path="res://TacticalSpaceCombat/UI/ui_system.tscn" id="1_u32ab"]
+
+[node name="Weapons" type="HBoxContainer"]
+custom_minimum_size = Vector2(0, 72)
+offset_right = 32.0
+offset_bottom = 72.0
+
+[node name="Button" parent="." instance=ExtResource("1_u32ab")]
+layout_mode = 2
+disabled = true
+text = "W"

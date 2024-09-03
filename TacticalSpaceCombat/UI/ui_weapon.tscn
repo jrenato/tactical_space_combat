@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://cphikpjkir0c8"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_8etdn"]
+resource_local_to_scene = false
+
+[node name="Weapon" type="VBoxContainer"]
+custom_minimum_size = Vector2(128, 72)
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+toggle_mode = true
+button_group = SubResource("ButtonGroup_8etdn")
+text = "Weapon"
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+show_percentage = false

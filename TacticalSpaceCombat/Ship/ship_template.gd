@@ -89,3 +89,15 @@ func add_laser_tracker(color: Color) -> Node:
 	lasers.add_child(laser_tracker)
 	laser_tracker.setup(color, rooms)
 	return laser_tracker
+
+
+## Open doors if none are already open, otherwise close them.
+func _on_ui_doors_button_pressed() -> void:
+	var has_opened_doors := false
+	for door in doors.get_children():
+		if door.is_open:
+			has_opened_doors = true
+			break
+
+	for door in doors.get_children():
+		door.is_open = not has_opened_doors

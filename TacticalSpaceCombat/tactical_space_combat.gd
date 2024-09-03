@@ -5,11 +5,13 @@ var ui_unit_scene: PackedScene = preload("res://TacticalSpaceCombat/UI/ui_unit.t
 @onready var ship_player: Node2D = %ShipPlayer
 @onready var ship_ai: Node2D = %ShipAI
 @onready var ui_units: VBoxContainer = %Units
+@onready var ui_doors: Button = %Doors
 
 
 func _ready() -> void:
 	_ready_units()
 	_ready_weapons_ai()
+	ui_doors.pressed.connect(ship_player._on_ui_doors_button_pressed)
 
 
 ## Creates the player UI to select units.

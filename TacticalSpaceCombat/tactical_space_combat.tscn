@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://del76nuuo6to7"]
+[gd_scene load_steps=6 format=3 uid="uid://del76nuuo6to7"]
 
 [ext_resource type="PackedScene" uid="uid://mmarmkhx7rgc" path="res://TacticalSpaceCombat/Ship/ship_player.tscn" id="1_kohpx"]
 [ext_resource type="Script" path="res://TacticalSpaceCombat/tactical_space_combat.gd" id="1_sc6bo"]
+[ext_resource type="Theme" uid="uid://cleg8bdwkp3sy" path="res://TacticalSpaceCombat/Assets/Theme.tres" id="3_m1im2"]
 [ext_resource type="PackedScene" uid="uid://dvhrnhvqrfshq" path="res://TacticalSpaceCombat/Ship/ship_ai.tscn" id="3_yoss2"]
+[ext_resource type="PackedScene" uid="uid://nvkgdnefj8ya" path="res://TacticalSpaceCombat/UI/ui_system.tscn" id="4_nxbhd"]
 
 [node name="TacticalSpaceCombat" type="Node2D"]
 script = ExtResource("1_sc6bo")
@@ -16,12 +18,24 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+theme = ExtResource("3_m1im2")
 
 [node name="Units" type="VBoxContainer" parent="UI"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="Systems" type="HBoxContainer" parent="UI"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 0
+offset_top = 1008.0
+offset_right = 32.0
+offset_bottom = 1080.0
+
+[node name="Doors" parent="UI/Systems" instance=ExtResource("4_nxbhd")]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 offset_left = 1024.0

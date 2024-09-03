@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://nvkgdnefj8ya"]
+
+[node name="UISystem" type="Button"]
+custom_minimum_size = Vector2(32, 32)
+offset_right = 8.0
+offset_bottom = 8.0
+size_flags_vertical = 10
+text = "S"
