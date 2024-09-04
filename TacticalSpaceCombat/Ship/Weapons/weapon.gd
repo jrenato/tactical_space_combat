@@ -3,6 +3,8 @@ class_name Weapon extends Sprite2D
 ## Controls the time it takes for the weapon to charge completely and get ready to fire.
 @export var charge_time: float = 2.0
 
+@export var weapon_name: String = ""
+
 ## These two properties define the range of the `_charge` variable below.
 ##
 ## We also use them later, with the player UI progress bar to display the

@@ -28,6 +28,14 @@ func _ready_editor_hint() -> void:
 		room.setup(tilemap)
 
 
+func _get_configuration_warning() -> String:
+	var is_verified := (
+		(is_in_group("player") and weapons.get_child_count() <= 4)
+		or not is_in_group("player")
+	)
+	return "" if is_verified else "%s can't have more than 4 weapons!" % name
+
+
 ## This gets called when running the script in the game.
 func _ready_not_editor_hint() -> void:
 	for unit: Unit in units.get_children():

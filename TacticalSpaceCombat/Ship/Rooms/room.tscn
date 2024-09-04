@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddfrfcjykisnt"]
+[gd_scene load_steps=6 format=3 uid="uid://ddfrfcjykisnt"]
 
 [ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/Rooms/room.gd" id="1_ny3ed"]
 [ext_resource type="PackedScene" uid="uid://cx6xhaxeape7l" path="res://TacticalSpaceCombat/UI/ui_feedback.tscn" id="2_u3hck"]
+[ext_resource type="Texture2D" uid="uid://cmk2wyafmwc5b" path="res://TacticalSpaceCombat/Assets/Assets.svg" id="3_l3i6c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f6m22"]
 radius = 20.0
@@ -25,5 +26,41 @@ shape = SubResource("RectangleShape2D_pyc3n")
 [node name="Feedback" parent="." instance=ExtResource("2_u3hck")]
 unique_name_in_owner = true
 modulate = Color(1, 0.709804, 0.439216, 1)
+
+[node name="SpriteTarget" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.45098, 0.152941, 0.360784, 1)
+texture = ExtResource("3_l3i6c")
+region_enabled = true
+region_rect = Rect2(96, 384, 32, 32)
+
+[node name="1" type="Sprite2D" parent="SpriteTarget"]
+visible = false
+position = Vector2(0, -16)
+texture = ExtResource("3_l3i6c")
+region_enabled = true
+region_rect = Rect2(88, 384, 8, 8)
+
+[node name="2" type="Sprite2D" parent="SpriteTarget"]
+visible = false
+position = Vector2(16, 0)
+texture = ExtResource("3_l3i6c")
+region_enabled = true
+region_rect = Rect2(88, 392, 8, 8)
+
+[node name="3" type="Sprite2D" parent="SpriteTarget"]
+visible = false
+position = Vector2(0, 16)
+texture = ExtResource("3_l3i6c")
+region_enabled = true
+region_rect = Rect2(88, 400, 8, 8)
+
+[node name="4" type="Sprite2D" parent="SpriteTarget"]
+visible = false
+position = Vector2(-16, 0)
+texture = ExtResource("3_l3i6c")
+region_enabled = true
+region_rect = Rect2(88, 408, 8, 8)
 
 [editable path="Feedback"]

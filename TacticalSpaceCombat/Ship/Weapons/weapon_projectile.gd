@@ -23,8 +23,8 @@ var _physics_layer := -1
 ## doesn't show any warnings.
 func _get_configuration_warning() -> String:
 	var parent := get_parent()
-	var is_verified: bool = parent != null and parent is ControllerAIProjectile
-	return "" if is_verified else "WeaponProjectile needs to be a parent of ControllerAIProjectile"
+	var is_verified: bool = parent != null and parent is ControllerAIProjectile or parent is ControllerPlayerProjectile
+	return "" if is_verified else "WeaponProjectile needs to be a parent of Controller*Projectile"
 
 
 func setup(physics_layer: int) -> void:

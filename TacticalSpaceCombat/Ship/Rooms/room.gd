@@ -2,6 +2,8 @@
 ## Represents a room in the ship.
 class_name Room extends Area2D
 
+signal targeted(msg: Dictionary)
+
 ## Room size in `TileMap` cells.
 # We'll use the setter function to resize the room's collision shapes.
 @export var size: Vector2i = Vector2i.ONE: set = set_size
@@ -29,15 +31,23 @@ var _iter_index: int = 0
 
 var _rng := RandomNumberGenerator.new()
 
+## We initialize it with an invalid value that will help us in checking for
+## targeting conditions.
+var _target_index: int = -1
+
 ## We'll update this node with the `set_size()` setter function.
 @onready var collision_shape: CollisionShape2D = %CollisionShape2D
 @onready var feedback: NinePatchRect = %Feedback
+@onready var sprite_target: Sprite2D = %SpriteTarget
 
 
 func _ready() -> void:
 	mouse_entered.connect(_on_mouse_exited.bind(true))
 	mouse_exited.connect(_on_mouse_exited.bind(false))
 	area_entered.connect(_on_area_entered)
+	input_event.connect(_on_input_event)
+
+
 	_rng.randomize()
 
 
@@ -183,3 +193,55 @@ func _on_area_entered(area: Area2D) -> void:
 		# We only want the door's coordinates here so we don't associate a value
 		# to it.
 		_entrances[entrance] = null
+
+
+func _on_controller_targeting(msg: Dictionary) -> void:
+	# Update `_target_index`. This is useful when emitting `targeted` when
+	# clicking on a `Room`.
+	_target_index = msg.index
+
+	# We might get an invalid input if the player cancels the targeting process.
+	if _target_index != -1:
+		# Every time the player enters targeting mode we first try to reset the
+		# targeting reticle.
+		sprite_target.visible = false
+
+		# And the specific child reticle number given the weapon index.
+		sprite_target.get_child(_target_index).visible = false
+
+		for node in sprite_target.get_children():
+			if node.visible:
+				# If there are other visible children, other than `_target_index`,
+				# then reenable the targeting reticle visibility and break out of
+				# the loop since one is enough.
+				sprite_target.visible = true
+				break
+
+
+func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if (
+		event.is_action_pressed("left_click")
+
+		# Note these checks. Like I mentioned before, we use
+		# `Input.CURSOR_CROSS` to check for player targeting mode.
+		and Input.get_current_cursor_shape() == Input.CURSOR_CROSS
+
+		# And we further assume that if `_target_index != -1`, it has to be
+		# valid and continue handling the `left_click`.
+		and _target_index != -1
+	):
+		# Turn on the appropriate targeting reticle.
+		sprite_target.visible = true
+		sprite_target.get_child(_target_index).visible = true
+
+		# And send back the position of the Room along with the other weapon
+		# information.
+		emit_signal(
+			"targeted",
+			{
+				"type": Controller.TYPE.PROJECTILE,
+				"index": _target_index,
+				"target_position": position
+			}
+		)
+		_target_index = -1

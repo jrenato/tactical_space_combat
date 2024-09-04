@@ -33,11 +33,10 @@ func _ready() -> void:
 	super()
 
 
-func _get_configuration_warnings() -> PackedStringArray:
+func _get_configuration_warning() -> String:
 	var parent := get_parent()
-	var is_verified: bool = parent != null and parent is ControllerAILaser
-
-	return [] if is_verified else ["WeaponLaser needs to be a parent of ControllerAILaser"]
+	var is_verified: bool = parent != null and parent is ControllerAILaser or parent is ControllerPlayerLaser
+	return "" if is_verified else "WeaponLaser needs to be a parent of Controller*Laser"
 
 
 func fire() -> void:
