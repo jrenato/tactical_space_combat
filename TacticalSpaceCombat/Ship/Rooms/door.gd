@@ -6,6 +6,7 @@ signal opened
 ## If `true`, the door is open, and units can pass through it. We'll define the
 ## setter function in a moment to control this behavior.
 var is_open: bool = false: set = set_is_open
+var is_enabled: bool = true
 
 ## Keeps track of the number of units passing this door right now.
 var _units := 0
@@ -23,6 +24,9 @@ func _ready() -> void:
 ## Updates `is_open` and the door's sprite. Emits the `opened` signal
 ## when `is_open` is `true`.
 func set_is_open(value: bool) -> void:
+	if not is_enabled:
+		return
+
 	is_open = value
 	if is_open:
 		sprite.frame = 1
@@ -32,6 +36,9 @@ func set_is_open(value: bool) -> void:
 
 
 func _on_area_movement(area: Node2D, has_entered: bool) -> void:
+	if not is_enabled:
+		return
+
 	if area.owner is Unit:
 		# Add or subtract 1 to `_units` based on `has_entered`.
 		_units += 1 if has_entered else -1

@@ -93,11 +93,19 @@ func add_laser_tracker(color: Color) -> Node:
 
 ## Open doors if none are already open, otherwise close them.
 func _on_ui_doors_button_pressed() -> void:
-	var has_opened_doors := false
+	var has_opened_doors: bool = false
 	for door in doors.get_children():
 		if door.is_open:
 			has_opened_doors = true
 			break
 
-	for door in doors.get_children():
+	for door: Door in doors.get_children():
+		# We have to reactivate the doors before closing them
+		if not door.is_enabled and has_opened_doors:
+			door.is_enabled = has_opened_doors
+
 		door.is_open = not has_opened_doors
+
+		# Now we make sure the door enabled is correct
+		if door.is_enabled != has_opened_doors:
+			door.is_enabled = has_opened_doors
