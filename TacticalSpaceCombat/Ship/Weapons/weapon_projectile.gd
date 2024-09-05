@@ -35,8 +35,10 @@ func fire() -> void:
 	if not can_fire():
 		return
 
+	super()
+
 	# We set `is_charging` to `true` to start the `Tween` animation.
-	self.is_charging = true
+	is_charging = true
 
 	var projectile: Projectile = projectile_scene.instantiate()
 	# We adjust `linear_velocity` by `rotation` because we can orient the weapon

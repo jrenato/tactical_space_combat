@@ -1,23 +1,27 @@
 extends Node2D
 
-var ui_unit_scene: PackedScene = preload("res://TacticalSpaceCombat/UI/ui_unit.tscn")
+const UI_UNIT: PackedScene = preload("res://TacticalSpaceCombat/UI/ui_unit.tscn")
+const UI_WEAPON: PackedScene = preload("res://TacticalSpaceCombat/UI/ui_weapon.tscn")
+const UI_WEAPONS: PackedScene = preload("res://TacticalSpaceCombat/UI/ui_weapons.tscn")
 
 @onready var ship_player: Node2D = %ShipPlayer
 @onready var ship_ai: Node2D = %ShipAI
 @onready var ui_units: VBoxContainer = %Units
 @onready var ui_doors: Button = %Doors
+@onready var ui_systems: HBoxContainer = %Systems
 
 
 func _ready() -> void:
 	_ready_units()
 	_ready_weapons_ai()
+	_ready_weapons_player()
 	ui_doors.pressed.connect(ship_player._on_ui_doors_button_pressed)
 
 
 ## Creates the player UI to select units.
 func _ready_units() -> void:
 	for unit in ship_player.units.get_children():
-		var ui_unit: ColorRect = ui_unit_scene.instantiate()
+		var ui_unit: ColorRect = UI_UNIT.instantiate()
 		ui_units.add_child(ui_unit)
 		unit.setup(ui_unit)
 
@@ -41,3 +45,29 @@ func _ready_weapons_ai() -> void:
 			controller.weapon.fire_started.connect(func(params: Dictionary): laser_tracker._on_weapon_fire_started(params))
 			controller.weapon.fire_stopped.connect(laser_tracker._on_weapon_fire_stopped)
 			laser_tracker.targeted.connect(controller._on_ship_targeted)
+
+
+func _ready_weapons_player() -> void:
+	for controller in ship_player.weapons.get_children():
+		if not ui_systems.has_node("Weapons"):
+			ui_systems.add_child(UI_WEAPONS.instantiate())
+
+		var ui_weapon: VBoxContainer = UI_WEAPON.instantiate()
+		ui_systems.get_node("Weapons").add_child(ui_weapon)
+
+		if controller is ControllerPlayerProjectile:
+			controller.weapon.projectile_exited.connect(ship_ai.projectiles._on_weapon_projectile_exited)
+			for room in ship_ai.rooms.get_children():
+				controller.targeting.connect(room._on_controller_targeting)
+				room.targeted.connect(controller._on_ship_targeted)
+
+		elif controller is ControllerPlayerLaser:
+			var laser_tracker: Node = ship_ai.add_laser_tracker(controller.weapon.color)
+			controller.targeting.connect(
+				laser_tracker._on_controller_targeting, CONNECT_DEFERRED
+			)
+			controller.weapon.fire_started.connect(laser_tracker._on_weapon_fire_started)
+			controller.weapon.fire_stopped.connect(laser_tracker._on_weapon_fire_stopped)
+			laser_tracker.targeted.connect(controller._on_ship_targeted)
+
+		controller.setup(ui_weapon)

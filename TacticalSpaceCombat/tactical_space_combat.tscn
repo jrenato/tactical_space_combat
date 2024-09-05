@@ -27,6 +27,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Systems" type="HBoxContainer" parent="UI"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 72)
 layout_mode = 0
 offset_top = 1008.0

@@ -19,6 +19,7 @@ func _on_ship_targeted(msg: Dictionary) -> void:
 		{"type": TYPE.PROJECTILE, ..}:
 			weapon.fire()
 
+
 func _on_ui_weapon_button_gui_input(event: InputEvent) -> void:
 	super(event)
 

@@ -23,8 +23,8 @@ func setup(ui_weapon: VBoxContainer) -> void:
 
 
 func _ready() -> void:
-	# We handle `ProgressBar` update to indicate charge time with this signal.
-	weapon.tween.tween_step.connect(_on_weapon_tween_tween_step)
+	#weapon.tween.step_finished.connect(_on_weapon_tween_tween_step)
+	weapon.charge_updated.connect(_on_weapon_charge_updated)
 
 
 func _input(event: InputEvent) -> void:
@@ -38,10 +38,8 @@ func _input(event: InputEvent) -> void:
 		_ui_weapon_button.button_pressed = false
 
 
-
-## The argument underscores tell Godot that we want to ignore their values.
-## We're interested only in `value` here.
-func _on_weapon_tween_tween_step(_o: Object, _k: NodePath, _e: float, value: float) -> void:
+## Updates the weapon charge progress bar
+func _on_weapon_charge_updated(value: float) -> void:
 	_ui_weapon_progress_bar.value = value
 
 

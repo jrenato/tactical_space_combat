@@ -1,5 +1,7 @@
 class_name Weapon extends Sprite2D
 
+signal charge_updated(current_charge: float)
+
 ## Controls the time it takes for the weapon to charge completely and get ready to fire.
 @export var charge_time: float = 2.0
 
@@ -17,7 +19,7 @@ var is_charging: bool = false: set = set_is_charging
 
 ## This variable keeps track of the current charge level.
 ## We'll later tie it with the player weapon's interface.
-var _charge: float = MIN_CHARGE
+var _charge: float = MIN_CHARGE : set = update_current_charge
 
 var tween: Tween
 
@@ -26,23 +28,27 @@ func _ready() -> void:
 	is_charging = true
 
 
-## Virtual function to overwrite to define how each weapon fires.
-func fire() -> void:
+func setup(physics_layer: int) -> void:
 	pass
 
 
+## Virtual function to overwrite to define how each weapon fires.
+func fire() -> void:
+	prints("weapon fired:", get_parent().get_name())
+
+
 func enable_weapon() -> void:
+	prints("weapon charged", get_parent().get_name())
 	is_charging = false
+	tween.kill()
 
 
 func set_is_charging(value: bool) -> void:
 	is_charging = value
 	# When we start charging, we animate the `_charge` property using our `Tween` node.
 	if is_charging:
-		#if tween and tween.is_running():
-			#tween.kill()
-
 		if not tween or not tween.is_running():
+			prints("Initiating charge", get_parent().get_name())
 			tween = create_tween()
 			tween.finished.connect(enable_weapon)
 			tween.tween_property(self, "_charge", MAX_CHARGE, charge_time)
@@ -52,3 +58,8 @@ func set_is_charging(value: bool) -> void:
 	# This lowers the cognitive burden of checking for fire conditions every time we
 	# call the function.
 	fire()
+
+
+func update_current_charge(value: float) -> void:
+	_charge = value
+	charge_updated.emit(value)
