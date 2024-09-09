@@ -34,7 +34,7 @@ func setup(physics_layer: int) -> void:
 
 ## Virtual function to overwrite to define how each weapon fires.
 func fire() -> void:
-	prints("weapon fired:", get_parent().get_name())
+	pass
 
 
 func enable_weapon() -> void:
@@ -49,6 +49,7 @@ func set_is_charging(value: bool) -> void:
 	if is_charging:
 		if not tween or not tween.is_running():
 			prints("Initiating charge", get_parent().get_name())
+			_charge = 0.0
 			tween = create_tween()
 			tween.finished.connect(enable_weapon)
 			tween.tween_property(self, "_charge", MAX_CHARGE, charge_time)
@@ -62,4 +63,5 @@ func set_is_charging(value: bool) -> void:
 
 func update_current_charge(value: float) -> void:
 	_charge = value
+	prints("Charging", get_parent().get_name(), "%4.2f" % (value/MAX_CHARGE))
 	charge_updated.emit(value)

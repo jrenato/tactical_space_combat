@@ -19,6 +19,9 @@ func _draw() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if not (event is InputEventMouse and Input.get_current_cursor_shape() == Input.CURSOR_ARROW):
+		return
+
 	# We only want to listen to mouse events: clicking, dragging, and releasing mouse clicks.
 	# So we return if we get any other kind of input.
 	if not event is InputEventMouse:

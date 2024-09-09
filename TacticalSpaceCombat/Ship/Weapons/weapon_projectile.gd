@@ -33,9 +33,10 @@ func setup(physics_layer: int) -> void:
 
 func fire() -> void:
 	if not can_fire():
+		prints("Can't fire", get_parent().get_name(), "yet")
 		return
 
-	super()
+	prints("Firing", get_parent().get_name())
 
 	# We set `is_charging` to `true` to start the `Tween` animation.
 	is_charging = true

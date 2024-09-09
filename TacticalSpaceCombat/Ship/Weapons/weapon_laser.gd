@@ -40,16 +40,16 @@ func _get_configuration_warning() -> String:
 
 func fire() -> void:
 	if not can_fire():
+		prints("Can't fire", get_parent().get_name(), "yet")
 		return
 
-	super()
+	prints("Firing", get_parent().get_name())
 
 	timer.start()
 	has_targeted = false
 	line.visible = true
 	var params: Dictionary = { "duration": timer.wait_time }
 	fire_started.emit(params)
-
 
 
 func stopped_firing() -> void:
