@@ -7,19 +7,12 @@ signal charge_updated(current_charge: float)
 
 @export var weapon_name: String = ""
 
-## These two properties define the range of the `_charge` variable below.
-##
-## We also use them later, with the player UI progress bar to display the
-## charge amount.
-const MIN_CHARGE: float = 0.0
-const MAX_CHARGE: float = 100.0
-
 ## We'll use this property to get the weapon to fire.
 var is_charging: bool = false: set = set_is_charging
 
 ## This variable keeps track of the current charge level.
 ## We'll later tie it with the player weapon's interface.
-var _charge: float = MIN_CHARGE : set = update_current_charge
+var _charge: float = 0.0 : set = update_current_charge
 
 var tween: Tween
 
@@ -38,7 +31,6 @@ func fire() -> void:
 
 
 func enable_weapon() -> void:
-	prints("weapon charged", get_parent().get_name())
 	is_charging = false
 	tween.kill()
 
@@ -46,13 +38,11 @@ func enable_weapon() -> void:
 func set_is_charging(value: bool) -> void:
 	is_charging = value
 	# When we start charging, we animate the `_charge` property using our `Tween` node.
-	if is_charging:
-		if not tween or not tween.is_running():
-			prints("Initiating charge", get_parent().get_name())
-			_charge = 0.0
-			tween = create_tween()
-			tween.finished.connect(enable_weapon)
-			tween.tween_property(self, "_charge", MAX_CHARGE, charge_time)
+	if is_charging and (not tween or not tween.is_running()):
+		_charge = 0.0
+		tween = create_tween()
+		tween.finished.connect(enable_weapon)
+		tween.tween_property(self, "_charge", 1.0, charge_time)
 
 	# Every time we update the `is_charging` value, attempt to fire.
 	# We'll handle the condition to fire in each weapon, inside the `fire()` function.
@@ -63,5 +53,4 @@ func set_is_charging(value: bool) -> void:
 
 func update_current_charge(value: float) -> void:
 	_charge = value
-	prints("Charging", get_parent().get_name(), "%4.2f" % (value/MAX_CHARGE))
 	charge_updated.emit(value)

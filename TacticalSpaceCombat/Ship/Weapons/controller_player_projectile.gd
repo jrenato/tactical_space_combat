@@ -5,6 +5,7 @@ func _ready() -> void:
 	# Remember  we initialize the projectile weapon with info on the enemy ship
 	# physics layer.
 	weapon.setup(Globals.Layers.SHIPAI)
+	super()
 
 
 func _on_ship_targeted(msg: Dictionary) -> void:

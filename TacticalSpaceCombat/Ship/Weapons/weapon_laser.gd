@@ -40,10 +40,7 @@ func _get_configuration_warning() -> String:
 
 func fire() -> void:
 	if not can_fire():
-		prints("Can't fire", get_parent().get_name(), "yet")
 		return
-
-	prints("Firing", get_parent().get_name())
 
 	timer.start()
 	has_targeted = false

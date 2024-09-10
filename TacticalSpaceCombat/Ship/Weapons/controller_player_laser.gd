@@ -1,5 +1,6 @@
 class_name ControllerPlayerLaser extends ControllerPlayer
 
+
 func _on_ship_targeted(msg: Dictionary) -> void:
 	super(msg)
 

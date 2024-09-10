@@ -33,12 +33,8 @@ func setup(physics_layer: int) -> void:
 
 func fire() -> void:
 	if not can_fire():
-		prints("Can't fire", get_parent().get_name(), "yet")
 		return
 
-	prints("Firing", get_parent().get_name())
-
-	# We set `is_charging` to `true` to start the `Tween` animation.
 	is_charging = true
 
 	var projectile: Projectile = projectile_scene.instantiate()
@@ -55,6 +51,7 @@ func fire() -> void:
 	add_child(projectile)
 
 	fired.emit()
+	# We set `is_charging` to `true` to start the `Tween` animation.
 
 
 func can_fire() -> bool:

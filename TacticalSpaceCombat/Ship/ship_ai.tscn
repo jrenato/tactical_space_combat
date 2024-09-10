@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://cdxkimjie257v" path="res://TacticalSpaceCombat/Ship/ship_template.tscn" id="1_kbeou"]
 [ext_resource type="PackedScene" uid="uid://ddfrfcjykisnt" path="res://TacticalSpaceCombat/Ship/Rooms/room.tscn" id="2_gllqc"]
 [ext_resource type="PackedScene" uid="uid://d3u5s2rke638d" path="res://TacticalSpaceCombat/Ship/Rooms/door.tscn" id="3_ohuoh"]
+[ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/Weapons/controller_ai_laser.gd" id="4_c44fs"]
 [ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/Weapons/controller_ai_projectile.gd" id="6_0vkjt"]
-[ext_resource type="PackedScene" uid="uid://xjsflkro6i5b" path="res://TacticalSpaceCombat/Ship/Weapons/controller_ai_laser.tscn" id="6_6qw8l"]
 [ext_resource type="PackedScene" uid="uid://dcdhxlkf48pt3" path="res://TacticalSpaceCombat/Ship/Weapons/weapon_projectile.tscn" id="7_ix7ra"]
 [ext_resource type="PackedScene" uid="uid://d0ancs4c6vn5x" path="res://TacticalSpaceCombat/Ship/Weapons/weapon_laser.tscn" id="7_yw8hc"]
 
@@ -22,9 +22,10 @@ size = Vector2i(3, 1)
 position = Vector2(128, 96)
 rotation = 1.5708
 
-[node name="ControllerAILaser" parent="Weapons" index="0" instance=ExtResource("6_6qw8l")]
+[node name="ControllerAILaser" type="Node2D" parent="Weapons" index="0"]
 position = Vector2(26, 146)
 rotation = 3.14159
+script = ExtResource("4_c44fs")
 
 [node name="Weapon" parent="Weapons/ControllerAILaser" index="0" instance=ExtResource("7_yw8hc")]
 

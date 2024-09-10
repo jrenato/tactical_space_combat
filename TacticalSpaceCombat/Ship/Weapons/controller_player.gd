@@ -11,8 +11,8 @@ func setup(ui_weapon: VBoxContainer) -> void:
 	# Remember we defined `MIN_CHARGE` and `MAX_CHARGE` on `Weapon`. Since they
 	# could be anything, we make sure to assign these values to the
 	# `ProgressBar` to keep it consistent.
-	_ui_weapon_progress_bar.min_value = Weapon.MIN_CHARGE
-	_ui_weapon_progress_bar.max_value = Weapon.MAX_CHARGE
+	_ui_weapon_progress_bar.min_value = 0.0
+	_ui_weapon_progress_bar.max_value = 1.0
 
 	# We use the "trick" that `gui_input` is a signal on `Control` nodes instead
 	# of overwriting the `_gui_input()` function in a script attached to
@@ -50,7 +50,6 @@ func _on_ui_weapon_button_gui_input(event: InputEvent) -> void:
 
 
 ## Updates the mouse cursor when the player enters or leaves targeting mode.
-
 ## Since `Input` is a singleton that's available to us from anywhere in code, we
 ## use the cursor shape as a global value for checking if the player entered
 ## targeting mode instead of keeping track of it through a custom global
