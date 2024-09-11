@@ -31,15 +31,22 @@ func fire() -> void:
 
 
 func enable_weapon() -> void:
+	prints(get_parent().get_name(), "is charged")
 	is_charging = false
 	tween.kill()
+	tween = null
 
 
 func set_is_charging(value: bool) -> void:
 	is_charging = value
 	# When we start charging, we animate the `_charge` property using our `Tween` node.
-	if is_charging and (not tween or not tween.is_running()):
+	if is_charging:
+		if tween:
+			tween.kill()
+			tween = null
+
 		_charge = 0.0
+		prints(get_parent().get_name(), ": running tween for", charge_time)
 		tween = create_tween()
 		tween.finished.connect(enable_weapon)
 		tween.tween_property(self, "_charge", 1.0, charge_time)
@@ -53,4 +60,5 @@ func set_is_charging(value: bool) -> void:
 
 func update_current_charge(value: float) -> void:
 	_charge = value
+	prints("Charging", get_parent().get_name(), value)
 	charge_updated.emit(value)
