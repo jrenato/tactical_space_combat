@@ -31,10 +31,8 @@ func fire() -> void:
 
 
 func enable_weapon() -> void:
-	prints(get_parent().get_name(), "is charged")
 	is_charging = false
-	tween.kill()
-	tween = null
+	#tween.kill()
 
 
 func set_is_charging(value: bool) -> void:
@@ -43,10 +41,9 @@ func set_is_charging(value: bool) -> void:
 	if is_charging:
 		if tween:
 			tween.kill()
-			tween = null
 
 		_charge = 0.0
-		prints(get_parent().get_name(), ": running tween for", charge_time)
+		#prints(get_parent().get_name(), ": running tween for", charge_time)
 		tween = create_tween()
 		tween.finished.connect(enable_weapon)
 		tween.tween_property(self, "_charge", 1.0, charge_time)
@@ -60,5 +57,4 @@ func set_is_charging(value: bool) -> void:
 
 func update_current_charge(value: float) -> void:
 	_charge = value
-	prints("Charging", get_parent().get_name(), value)
 	charge_updated.emit(value)

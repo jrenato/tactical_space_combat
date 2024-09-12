@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://mmarmkhx7rgc"]
+[gd_scene load_steps=11 format=3 uid="uid://mmarmkhx7rgc"]
 
 [ext_resource type="PackedScene" uid="uid://cdxkimjie257v" path="res://TacticalSpaceCombat/Ship/ship_template.tscn" id="1_ulsb4"]
 [ext_resource type="PackedScene" uid="uid://ddfrfcjykisnt" path="res://TacticalSpaceCombat/Ship/Rooms/room.tscn" id="2_ogqx4"]
@@ -6,6 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://dr0q41y5uexmy" path="res://TacticalSpaceCombat/Ship/Rooms/wall.tscn" id="4_hxrju"]
 [ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/units.gd" id="5_lb4f0"]
 [ext_resource type="PackedScene" uid="uid://di8wykxm1m2rm" path="res://TacticalSpaceCombat/Ship/Units/unit_player.tscn" id="6_62wnp"]
+[ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/Weapons/controller_player_projectile.gd" id="7_tng5l"]
+[ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/Weapons/controller_player_laser.gd" id="8_6h538"]
+[ext_resource type="PackedScene" uid="uid://dcdhxlkf48pt3" path="res://TacticalSpaceCombat/Ship/Weapons/weapon_projectile.tscn" id="8_42bw2"]
+[ext_resource type="PackedScene" uid="uid://d0ancs4c6vn5x" path="res://TacticalSpaceCombat/Ship/Weapons/weapon_laser.tscn" id="10_6d3et"]
 
 [node name="ShipPlayer" groups=["player"] instance=ExtResource("1_ulsb4")]
 
@@ -56,6 +60,32 @@ position = Vector2(32, 32)
 
 [node name="PathFollow2D" parent="Units/UnitPlayer2" index="0"]
 position = Vector2(352, 96)
+
+[node name="Weapons" parent="." index="5"]
+position = Vector2(448, 96)
+
+[node name="ControllerPlayerProjectile" type="Node2D" parent="Weapons" index="0"]
+position = Vector2(32, 192)
+script = ExtResource("7_tng5l")
+
+[node name="Weapon" parent="Weapons/ControllerPlayerProjectile" index="0" instance=ExtResource("8_42bw2")]
+weapon_name = "Missile"
+
+[node name="ControllerPlayerLaser" type="Node2D" parent="Weapons" index="1"]
+position = Vector2(32, 0)
+script = ExtResource("8_6h538")
+
+[node name="Weapon" parent="Weapons/ControllerPlayerLaser" index="0" instance=ExtResource("10_6d3et")]
+color = Color(0.236726, 0.344988, 0.839442, 1)
+weapon_name = "Laser"
+
+[node name="ControllerPlayerProjectile2" type="Node2D" parent="Weapons" index="2"]
+position = Vector2(-96, -128)
+script = ExtResource("7_tng5l")
+
+[node name="Weapon" parent="Weapons/ControllerPlayerProjectile2" index="0" instance=ExtResource("8_42bw2")]
+charge_time = 6.0
+weapon_name = "Bomb"
 
 [editable path="Units/UnitPlayer"]
 [editable path="Units/UnitPlayer2"]

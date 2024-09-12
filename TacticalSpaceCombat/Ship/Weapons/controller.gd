@@ -15,6 +15,16 @@ enum TYPE {PROJECTILE, LASER}
 @onready var weapon: Weapon = null if Engine.is_editor_hint() else $Weapon
 
 
+func _ready() -> void:
+	if not weapon:
+		for node in get_children():
+			prints("Found node", node)
+			if node is Weapon:
+				weapon = node
+				break
+	print(weapon)
+
+
 func _on_ship_targeted(msg: Dictionary) -> void:
 	match msg:
 		# The `..` syntax means "match anything" inside dictionaries and arrays.

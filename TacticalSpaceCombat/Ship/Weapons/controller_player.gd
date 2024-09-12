@@ -23,6 +23,7 @@ func setup(ui_weapon: VBoxContainer) -> void:
 
 
 func _ready() -> void:
+	super()
 	#weapon.tween.step_finished.connect(_on_weapon_tween_tween_step)
 	weapon.charge_updated.connect(_on_weapon_charge_updated)
 
