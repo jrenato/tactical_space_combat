@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://del76nuuo6to7"]
+[gd_scene load_steps=7 format=3 uid="uid://del76nuuo6to7"]
 
 [ext_resource type="PackedScene" uid="uid://mmarmkhx7rgc" path="res://TacticalSpaceCombat/Ship/ship_player.tscn" id="1_kohpx"]
 [ext_resource type="Script" path="res://TacticalSpaceCombat/tactical_space_combat.gd" id="1_sc6bo"]
 [ext_resource type="Theme" uid="uid://cleg8bdwkp3sy" path="res://TacticalSpaceCombat/Assets/Theme.tres" id="3_m1im2"]
 [ext_resource type="PackedScene" uid="uid://dvhrnhvqrfshq" path="res://TacticalSpaceCombat/Ship/ship_ai.tscn" id="3_yoss2"]
 [ext_resource type="PackedScene" uid="uid://nvkgdnefj8ya" path="res://TacticalSpaceCombat/UI/ui_system.tscn" id="4_nxbhd"]
+[ext_resource type="FontFile" path="res://TacticalSpaceCombat/Assets/Font/MontserratExtraBold24.tres" id="5_b327f"]
 
 [node name="TacticalSpaceCombat" type="Node2D"]
 script = ExtResource("1_sc6bo")
@@ -12,6 +13,7 @@ script = ExtResource("1_sc6bo")
 [node name="ShipPlayer" parent="." instance=ExtResource("1_kohpx")]
 unique_name_in_owner = true
 position = Vector2(128, 384)
+hitpoints = null
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -38,6 +40,14 @@ offset_bottom = 1080.0
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="PlayerHitPoints" type="Label" parent="UI"]
+unique_name_in_owner = true
+offset_left = 64.0
+offset_right = 133.0
+offset_bottom = 29.0
+theme_override_fonts/font = ExtResource("5_b327f")
+text = "HP: 100"
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 offset_left = 1024.0
 offset_top = 96.0
@@ -53,3 +63,18 @@ render_target_update_mode = 4
 [node name="ShipAI" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_yoss2")]
 unique_name_in_owner = true
 position = Vector2(256, 352)
+hitpoints = null
+
+[node name="UI" type="Control" parent="SubViewportContainer/SubViewport"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EnemyHitPoints" type="Label" parent="SubViewportContainer/SubViewport/UI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("5_b327f")
+text = "HP: 100"

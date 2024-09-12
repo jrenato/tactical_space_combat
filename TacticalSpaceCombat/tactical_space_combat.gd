@@ -3,19 +3,26 @@ extends Node2D
 const UI_UNIT: PackedScene = preload("res://TacticalSpaceCombat/UI/ui_unit.tscn")
 const UI_WEAPON: PackedScene = preload("res://TacticalSpaceCombat/UI/ui_weapon.tscn")
 const UI_WEAPONS: PackedScene = preload("res://TacticalSpaceCombat/UI/ui_weapons.tscn")
+const END_SCENE: PackedScene = preload("res://TacticalSpaceCombat/end.tscn")
 
 @onready var ship_player: Node2D = %ShipPlayer
 @onready var ship_ai: Node2D = %ShipAI
 @onready var ui_units: VBoxContainer = %Units
 @onready var ui_doors: Button = %Doors
 @onready var ui_systems: HBoxContainer = %Systems
+@onready var player_hit_points: Label = %PlayerHitPoints
+@onready var enemy_hit_points: Label = %EnemyHitPoints
 
 
 func _ready() -> void:
+	ship_player.hitpoints_changed.connect(_on_ship_hitpoints_changed)
+	ship_ai.hitpoints_changed.connect(_on_ship_hitpoints_changed)
 	_ready_units()
 	_ready_weapons_ai()
 	_ready_weapons_player()
 	ui_doors.pressed.connect(ship_player._on_ui_doors_button_pressed)
+	_on_ship_hitpoints_changed(ship_player.hitpoints, true)
+	_on_ship_hitpoints_changed(ship_ai.hitpoints, false)
 
 
 ## Creates the player UI to select units.
@@ -71,3 +78,11 @@ func _ready_weapons_player() -> void:
 			laser_tracker.targeted.connect(controller._on_ship_targeted)
 
 		controller.setup(ui_weapon)
+
+
+func _on_ship_hitpoints_changed(hitpoints: int, is_player: bool) -> void:
+	var label := player_hit_points if is_player else enemy_hit_points
+	label.text = "HP: %d" % hitpoints
+	if hitpoints == 0:
+		Globals.winner_is_player = not is_player
+		get_tree().change_scene_to_packed(END_SCENE)

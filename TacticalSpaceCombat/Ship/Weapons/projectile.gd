@@ -8,6 +8,7 @@ var max_distance := MAX_DISTANCE
 ## The position at which we spawn the `Projectile` to calculate the
 ## distance traveled.
 var _origin := Vector2.ZERO
+var params: Dictionary = {}
 
 
 func _ready() -> void:

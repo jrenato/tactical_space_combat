@@ -2,7 +2,7 @@ extends Node
 
 ## Provides easy access to physics layers and masks from code.
 var Layers: Dictionary = { null: 0, }
-
+var winner_is_player: bool = false
 
 func _ready() -> void:
 	var label := 'layer_names/2d_physics/layer_%d'

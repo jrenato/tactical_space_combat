@@ -39,4 +39,6 @@ func _on_weapon_projectile_exited(params: Dictionary) -> void:
 	# room to travel outside the screen before it gets removed.
 	projectile.max_distance *= 2
 
+	projectile.params = params
+
 	add_child(projectile)

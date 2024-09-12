@@ -4,8 +4,8 @@ signal charge_updated(current_charge: float)
 
 ## Controls the time it takes for the weapon to charge completely and get ready to fire.
 @export var charge_time: float = 2.0
-
 @export var weapon_name: String = ""
+@export_range(0, 5) var attack: int = 2
 
 ## We'll use this property to get the weapon to fire.
 var is_charging: bool = false: set = set_is_charging

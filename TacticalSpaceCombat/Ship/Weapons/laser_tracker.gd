@@ -96,6 +96,11 @@ func _on_weapon_fire_started(params: Dictionary) -> void:
 	if Vector2.INF in target_line.points:
 		return
 
+	# We also set the `Area2D` node to `monitorable` whenever we fire the
+	# weapon.
+	area.set_deferred("monitorable", true)
+	area.params = params
+
 	# Generate an off-screen position for the first `Line2D` point - the
 	# incoming laser origin. We animate the second index with a helper function
 	# and the `Tween` node.
@@ -123,6 +128,8 @@ func _on_weapon_fire_stopped() -> void:
 
 	line.points = LINE_DEFAULT
 	area.position = Vector2.ZERO
+	area.set_deferred("monitorable", false)
+
 	# We don't care to reset `target_line.points` here because each new cycle
 	# it'll be updated to random positions anyway.
 	target_line.points = LINE_DEFAULT

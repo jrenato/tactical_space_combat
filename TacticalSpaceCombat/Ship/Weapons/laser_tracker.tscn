@@ -1,17 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://todrq3lvrx5f"]
+[gd_scene load_steps=4 format=3 uid="uid://todrq3lvrx5f"]
 
 [ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/Weapons/laser_tracker.gd" id="1_5ice3"]
+[ext_resource type="Script" path="res://TacticalSpaceCombat/Ship/Weapons/laser_area.gd" id="2_ofmu5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i0neo"]
 
 [node name="LaserTracker" type="Node2D"]
 script = ExtResource("1_5ice3")
 
-[node name="Area2D" type="Area2D" parent="." groups=["lasers"]]
+[node name="HitArea2D" type="Area2D" parent="." groups=["lasers"]]
 unique_name_in_owner = true
 monitorable = false
+script = ExtResource("2_ofmu5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea2D"]
 shape = SubResource("CircleShape2D_i0neo")
 
 [node name="Line2D" type="Line2D" parent="."]

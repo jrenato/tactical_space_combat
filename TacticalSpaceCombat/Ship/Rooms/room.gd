@@ -39,6 +39,7 @@ var _target_index: int = -1
 @onready var collision_shape: CollisionShape2D = %CollisionShape2D
 @onready var feedback: NinePatchRect = %Feedback
 @onready var sprite_target: Sprite2D = %SpriteTarget
+@onready var hit_area: Area2D = %HitArea2D
 
 
 func _ready() -> void:
@@ -55,6 +56,13 @@ func _ready() -> void:
 func setup(tilemap: TileMapLayer) -> void:
 	_tilemap = tilemap
 	_setup_extents()
+
+	if not Engine.is_editor_hint():
+		hit_area.collision_mask = (
+			Globals.Layers.SHIPPLAYER
+			if owner.is_in_group("player")
+			else Globals.Layers.SHIPAI
+		)
 
 	_area = size.x * size.y
 

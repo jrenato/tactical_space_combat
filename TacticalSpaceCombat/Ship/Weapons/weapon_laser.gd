@@ -45,7 +45,7 @@ func fire() -> void:
 	timer.start()
 	has_targeted = false
 	line.visible = true
-	var params: Dictionary = { "duration": timer.wait_time }
+	var params: Dictionary = {"duration": timer.wait_time, "attack": attack}
 	fire_started.emit(params)
 
 

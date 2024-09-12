@@ -1,7 +1,12 @@
 @tool
 extends Node2D
 
+signal hitpoints_changed(hitpoints: int, is_player: bool)
+
 const laser_tracker_scene := preload("res://TacticalSpaceCombat/Ship/Weapons/laser_tracker.tscn")
+const attack_label_scene := preload("res://TacticalSpaceCombat/UI/attack_label.tscn")
+
+@export_range(0, 30) var hitpoints: int = 30
 
 var _slots: Dictionary = {}
 
@@ -48,6 +53,9 @@ func _ready_not_editor_hint() -> void:
 
 	for room: Room in rooms.get_children():
 		room.setup(tilemap)
+
+		room.area_entered.connect(_on_room_area_area_entered.bind(room))
+		room.hit_area.body_entered.connect(_on_room_hit_area_body_entered.bind(room))
 
 		var points: Array[Vector2i] = []
 		for point in room:
@@ -117,3 +125,30 @@ func _on_ui_doors_button_pressed() -> void:
 		# Now we make sure the door enabled is correct
 		if door.is_enabled != has_opened_doors:
 			door.is_enabled = has_opened_doors
+
+
+## Handles projectiles.
+func _on_room_hit_area_body_entered(body: RigidBody2D, room: Room) -> void:
+	# We make sure that the projectiles interact with the correct `Room` by
+	# checking their positions.
+	if not room.position.is_equal_approx(body.params.target_position):
+		return
+
+	body.queue_free()
+	_take_damage(body.params.attack, room.position)
+
+
+## Handles lasers.
+func _on_room_area_area_entered(area: Area2D, room: Room) -> void:
+	if area.is_in_group("laser"):
+		_take_damage(area.params.attack, room.position)
+
+
+func _take_damage(attack: int, object_position: Vector2) -> void:
+	var attack_label := attack_label_scene.instantiate()
+	attack_label.setup(attack, object_position)
+	add_child(attack_label)
+
+	hitpoints -= attack
+	hitpoints = max(0, hitpoints)
+	hitpoints_changed.emit(hitpoints, is_in_group("player"))

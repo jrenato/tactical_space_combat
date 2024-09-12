@@ -44,7 +44,8 @@ func fire() -> void:
 
 	var params: Dictionary = {
 		"physics_layer": _physics_layer,
-		"target_position": target_position
+		"target_position": target_position,
+		"attack": attack
 	}
 	projectile.tree_exited.connect(func(): projectile_exited.emit(params))
 
