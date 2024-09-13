@@ -22,7 +22,7 @@ var _rooms: Node2D = null
 
 var tween: Tween
 
-@onready var area: Area2D = %Area2D
+@onready var area: Area2D = %HitArea2D
 @onready var line: Line2D = %Line2D
 @onready var target_line: Line2D = %TargetLine2D
 
