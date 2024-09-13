@@ -85,4 +85,4 @@ func _on_ship_hitpoints_changed(hitpoints: int, is_player: bool) -> void:
 	label.text = "HP: %d" % hitpoints
 	if hitpoints == 0:
 		Globals.winner_is_player = not is_player
-		get_tree().change_scene_to_packed(END_SCENE)
+		get_tree().change_scene_to_packed.bind(END_SCENE).call_deferred()

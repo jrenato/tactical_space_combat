@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://d0ancs4c6vn5x" path="res://TacticalSpaceCombat/Ship/Weapons/weapon_laser.tscn" id="10_6d3et"]
 
 [node name="ShipPlayer" groups=["player"] instance=ExtResource("1_ulsb4")]
+hitpoints = 100
 
 [node name="Room" parent="Rooms" index="0" instance=ExtResource("2_ogqx4")]
 position = Vector2(96, 64)

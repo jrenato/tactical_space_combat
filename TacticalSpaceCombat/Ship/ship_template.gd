@@ -6,7 +6,7 @@ signal hitpoints_changed(hitpoints: int, is_player: bool)
 const laser_tracker_scene := preload("res://TacticalSpaceCombat/Ship/Weapons/laser_tracker.tscn")
 const attack_label_scene := preload("res://TacticalSpaceCombat/UI/attack_label.tscn")
 
-@export_range(0, 30) var hitpoints: int = 30
+@export_range(0, 100) var hitpoints: int = 30
 
 var _slots: Dictionary = {}
 
@@ -140,7 +140,7 @@ func _on_room_hit_area_body_entered(body: RigidBody2D, room: Room) -> void:
 
 ## Handles lasers.
 func _on_room_area_area_entered(area: Area2D, room: Room) -> void:
-	if area.is_in_group("laser"):
+	if area.is_in_group("lasers"):
 		_take_damage(area.params.attack, room.position)
 
 
