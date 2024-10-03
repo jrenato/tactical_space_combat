@@ -48,7 +48,6 @@ func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 	input_event.connect(_on_input_event)
 
-
 	_rng.randomize()
 
 
